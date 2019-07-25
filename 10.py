@@ -109,7 +109,6 @@ class Solution:
     def isMatch(self, s: str, p: str,k=0) -> bool:
 
         length_s=len(s)
-        length_p=len(p)
 
         # 不用每次都来进行对p的操作
         if(k==0):
@@ -150,7 +149,7 @@ class Solution:
             return cal_num
 
 
-        for i in range(k,length_p):
+        for i in range(k,len(p)):
             if (p[i] == '*'):
                 if (i == 0):
                     break
@@ -169,14 +168,14 @@ class Solution:
                     for times in range(0, s_char_repeat_num+1):
                         tmp_p = p[:i - 1]
                         for in_times in range(times):
-                            tmp_p = tmp_p + charBeforStar
-                        tmp_p = tmp_p + p[i+1:]
+                            tmp_p = tmp_p+charBeforStar
+                        tmp_p = tmp_p+p[i+1:]
                         isMatchFlag_times = self.isMatch(s, tmp_p,i+times)
                         if (isMatchFlag_times == True):
                             return True
 
 
-        if(length_s!=length_p):
+        if(length_s!=len(p)):
             return False
         for index_i in range(length_s):
             if(p[index_i]=='.' or s[index_i]==p[index_i]  ):
@@ -300,12 +299,12 @@ class Solution:
 
 if __name__ == '__main__':
     so = Solution()
-    s = 'bbaabcbaaccbaaaa'
-    p = 'a*c*ba*.b.*b.*c*.*c'
-    start = time.clock()
+    s = 'bcbacacbacbbbbcac'
+    p = '..*a*a*b*c*.*a*bb*.'
+    start = time.perf_counter()
 
     res = so.isMatch(s, p)
-    end = time.clock()
+    end = time.perf_counter()
     print("final is in ", end - start)
     print(res)
-    profile.run("isMatch()")
+    # profile.run("isMatch('bbaabcbaaccbaaaa','a*c*ba*.b.*b.*c*.*c')")
